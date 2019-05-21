@@ -1,0 +1,54 @@
+<br>
+<h2>Mes informations</h2>
+<hr>
+<section id="contact">
+{{#if user}}
+	<div class="inner profile">
+
+		<section>
+			<p>Nom : {{user.nom}}</p>
+			<br>
+			<p>Prénom : {{user.prenom}}</p>
+			<br>
+			<p>Statut : {{user.role}}</p>
+			<br>
+			<p>Email : {{user.username}}</p>
+			<br>
+			<p>Numéro de téléphone : {{user.telephone}}</p>
+		
+		</section>
+
+		<section class="split">
+
+			<section>
+				<div class="contact-method">
+					<h3>Mon établissement</h3>
+					<br>
+					{{#each etablissements}}
+					<p>
+						{{nom}}<br>
+						{{adresse}}<br>
+						{{cp}} {{ville}}<br>
+						{{telephone}}
+					</p>
+					{{/each}}
+				</div>
+			</section>
+
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3><a href="/principal/{{user._id}}/messagerie_principal">Accéder à la messagerie</a></h3>
+				</div>
+			</section>
+
+			<section>					
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3><a href="/principal/{{user._id}}/edit">Modifier mon profil</a></h3>
+				</div>
+			</section>
+		</section>
+	</div>
+	{{/if}}
+</section>

@@ -1,0 +1,60 @@
+<br>
+<h2>Mes informations</h2>
+<hr>
+<section id="contact">
+{{#if user}}
+	<div class="inner profile">
+
+		<section>
+			<p>Nom : {{user.nom}}</p>
+			<br>
+			<p>Prénom : {{user.prenom}}</p>
+			<br>
+			<p>Classe : {{user.classe}}</p>
+			<br>
+			<p>Email : {{user.username}}</p>
+			<br>
+			<p>Numéro de téléphone : {{user.telephone}}</p>
+			<br>
+			<hr>
+			<br>
+			<h3>Parent référent</h3>
+			<br>
+			<p>{{user.parent_nom}} {{user.parent_prenom}}<br>{{user.parent_email}}<br>{{user.parent_telephone}}</p>
+			
+		</section>
+
+		<section class="split">
+
+			<section>
+				<div class="contact-method">
+					<h3>Mon établissement</h3>
+					<br>
+					{{#each etablissements}}
+					<p>
+						{{nom}}<br>
+						{{adresse}}<br>
+						{{cp}} {{ville}}<br>
+						{{telephone}}
+					</p>
+					{{/each}}
+				</div>
+			</section>
+
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3><a href="/eleve/{{user._id}}/messagerie_eleve">Accéder à la messagerie</a></h3>
+				</div>
+			</section>
+
+			<section>					
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3><a href="/eleve/{{user._id}}/edit">Modifier mon profil</a></h3>
+				</div>
+			</section>
+		</section>
+	</div>
+	{{/if}}
+</section>

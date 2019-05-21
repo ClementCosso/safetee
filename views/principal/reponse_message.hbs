@@ -1,0 +1,38 @@
+<br>
+<h2>Répondre au message {{reponse_message._id}}</h2>
+{{user._id}}
+<hr>
+<div class="box">
+    <p>Objet : {{reponse_message.objet}}</p>
+	<p>Sujet : {{reponse_message.sujet}}</p>
+	<p>Contenu : {{reponse_message.contenu}}</p>
+</div>
+
+<form action="/principal/reponse_message" method="POST" id="form-container">
+<input id="signalement" type="hidden" name="signalement" value="false">
+	<input id="emetteur" type="hidden" name="emetteur" value="{{reponse_message.recepteur}}">
+	<input id="recepteur" type="hidden" name="recepteur" value="{{reponse_message.emetteur}}">
+    <input id="statut" type="hidden" name="statut" value="{{reponse_message.statut}}">
+    <input id="objet" type="hidden" name="objet" value="{{reponse_message.objet}}">
+    <input id="lu" type="hidden" name="lu" value="NON">
+    <input id="archive" type="hidden" name="archive" value="NON">
+    <input id="priority_level" type="hidden" name="priority_level" value="{{reponse_message.priority_level}}">
+    
+    <label for="sujet">Sujet</label>
+    <input id="sujet" type="text" name="sujet" value="Re : {{reponse_message.sujet}}">
+
+    <br>
+
+    <label for="contenu">Votre message</label>
+    <textarea rows = "5" cols = "50" name = "contenu">
+    </textarea>
+  
+    <br>
+    <!-- {{#if message }}
+    <div class="error-message">{{ message }}</div>
+    {{/if}} -->
+
+  	<button>Envoyer</button>
+    <input type="button" value="Revenir" onclick="window.history.back()" /> 
+
+</form>
