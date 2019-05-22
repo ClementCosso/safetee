@@ -9,7 +9,9 @@ const Etablissement = require("../models/Etablissement");
 const bcryptSalt = 10;
 
 mongoose
-  .connect("mongodb://localhost/schoolharassment", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/schoolharassment", {
+    useNewUrlParser: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
