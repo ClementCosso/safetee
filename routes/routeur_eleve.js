@@ -180,6 +180,39 @@ router.post('/eleve/edit', checkEleve, ensureLogin.ensureLoggedIn(), (req, res, 
 
 
 // a) METHOD GET PAGE MESSAGERIE
+// router.get(
+//   "/eleve/:id/messagerie_eleve",
+//   checkEleve,
+//   ensureLogin.ensureLoggedIn(),
+//   (req, res, next) => {
+//     User.findOne({ _id: req.params.id }).then(user => {
+//       Message.find({ $and : [ {emetteur: { $eq: user._id }}, {archive: { $eq: "NON" }} ] })
+//         .populate("recepteur", "nom prenom username")
+//         .then(message_emis => {
+//           Message.find({
+//             $and: [{ lu: { $eq: "OUI" } }, { recepteur: { $eq: user._id } }]
+//           })
+//             .populate("emetteur", "nom prenom username")
+//             .then(message_lu => {
+//               Message.find({
+//                 $and: [{ lu: { $eq: "NON" } }, { recepteur: { $eq: user._id } }]
+//               })
+//                 .populate("emetteur", "nom prenom username")
+//                 .then(message_non_lu => {
+//                   res.render("eleve/messagerie_eleve", {
+//                     layout: "layout_eleve.hbs",
+//                     user: user,
+//                     message_emis: message_emis,
+//                     message_lu: message_lu,
+//                     message_non_lu: message_non_lu
+//                   });
+//                 });
+//             });
+//         });
+//     });
+//   }
+// );
+
 router.get(
   "/eleve/:id/messagerie_eleve",
   checkEleve,
@@ -189,22 +222,35 @@ router.get(
       Message.find({ $and : [ {emetteur: { $eq: user._id }}, {archive: { $eq: "NON" }} ] })
         .populate("recepteur", "nom prenom username")
         .then(message_emis => {
+          let message_emis_modified = message_emis.map(item => {
+                    item = {...item._doc, created_at: moment(item.created_at, "YYYY-MM-DDTHH:mm:ss.SSS").lang("fr").format("LLL")}
+                    return item;
+                    })
           Message.find({
             $and: [{ lu: { $eq: "OUI" } }, { recepteur: { $eq: user._id } }]
           })
             .populate("emetteur", "nom prenom username")
             .then(message_lu => {
+              let message_lu_modified = message_lu.map(item => {
+                    item = {...item._doc, created_at: moment(item.created_at, "YYYY-MM-DDTHH:mm:ss.SSS").lang("fr").format("LLL")}
+                    return item;
+                    })
               Message.find({
                 $and: [{ lu: { $eq: "NON" } }, { recepteur: { $eq: user._id } }]
               })
                 .populate("emetteur", "nom prenom username")
                 .then(message_non_lu => {
+                  let message_non_lu_modified = message_non_lu.map(item => {
+                    item = {...item._doc, created_at: moment(item.created_at, "YYYY-MM-DDTHH:mm:ss.SSS").lang("fr").format("LLL")}
+                    return item;
+                    }
+                  )
                   res.render("eleve/messagerie_eleve", {
                     layout: "layout_eleve.hbs",
                     user: user,
-                    message_emis: message_emis,
-                    message_lu: message_lu,
-                    message_non_lu: message_non_lu
+                    message_emis: message_emis_modified,
+                    message_lu: message_lu_modified,
+                    message_non_lu: message_non_lu_modified
                   });
                 });
             });
