@@ -52,7 +52,8 @@ const router  = express.Router();
 const ensureLogin = require("connect-ensure-login");
 const flash = require("connect-flash");
 var helpers = require('handlebars-helpers')();
-
+// Moment.js
+const moment      = require('moment');
 // MODELS
 const Etablissement = require('../models/Etablissement');
 const User = require("../models/User");
